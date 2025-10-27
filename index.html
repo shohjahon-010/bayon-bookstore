@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bayon - Kitob Do'koni</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <h1>📚 Bayon</h1>
+                </div>
+                <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="active">Bosh Sahifa</a></li>
+                    <li><a href="books.html">Kitoblar</a></li>
+                    <li><a href="about.html">Biz Haqida</a></li>
+                    <li><a href="contact.html">Aloqa</a></li>
+                </ul>
+                
+              
+
+               
+
+                <div class="profile-section" onclick="toggleProfile()">
+                    <span class="profile-icon">👤</span>
+                </div>
+
+                <div class="profile-dropdown" id="profileDropdown">
+                    <div class="profile-header">
+                        <h3 id="profileName">Foydalanuvchi</h3>
+                        <p id="profileEmail">user@bayon.uz</p>
+                    </div>
+                    <ul class="profile-menu">
+                        <li><a href="#" onclick="viewProfile(event)">Profil</a></li>
+                        <li><a href="#" onclick="viewOrders(event)">Buyurtmalarim</a></li>
+                        <li><a href="#" onclick="viewFavorites(event)">Sevimli Kitoblar</a></li>
+                        <li><a href="#" onclick="viewSettings(event)">Sozlamalar</a></li>
+                        <li><a href="#" onclick="logout(event)">Chiqish</a></li>
+                    </ul>
+                </div>
+
+                <div class="cart-icon" onclick="toggleCart()" style="position: relative;">
+                    <span class="cart-count" id="cartCount">0</span>
+                    🛒
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Savatcha</h2>
+            <button class="close-btn" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">Savatcha bo'sh</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Jami:</strong>
+                <span id="cartTotal">0 so'm</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Sotib Olish</button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Bayon Kitob Do'koni</h1>
+            <p class="hero-subtitle">O'zbek adabiyoti va tarixining eng yaxshi kitoblarini toping</p>
+            <a href="books.html" class="cta-button">Kitoblarni Ko'rish</a>
+        </div>
+        <div class="hero-image">
+            <div class="book-stack">
+                <img class="img-fluid imgg" src="./img/@Abbosxon_photographer 1-19.jpg" alt="">
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Books -->
+    <section class="featured">
+        <div class="container">
+            <h2>Mashhur Kitoblar</h2>
+            <div class="books-grid">
+                <div class="book-card" onclick="addToCart(1, 'Har narsadan tashvish chekma ey ko‘nggil', 37000, 'photo_2025-10-27_19-25-41.jpg')">
+                    <div class="book-image">
+                        <img src="./img/photo_2025-10-27_19-25-41.jpg" alt="O'zbek Tilining Tarixi">
+                    </div>
+                    <h3>Har narsadan tashvish chekma ey ko‘nggil</h3>
+                    <p class="author">Ug'ur Qoshar</p>
+                    <div class="rating">⭐⭐⭐⭐⭐ (245)</div>
+                    <p class="price">37,000 so'm</p>
+                    <button class="add-btn">Savatga Qo'shish</button>
+                </div>
+
+                <div class="book-card" onclick="addToCart(2, 'Qorqmanglar men sizlar bilanman', 37000, 'photo_2025-10-27_19-25-44.jpg')">
+                    <div class="book-image">
+                        <img src="./img/photo_2025-10-27_19-25-44.jpg" alt="Alisher Navoiy">
+                    </div>
+                    <h3>Qo‘rqmanglar men sizlar bilanman</h3>
+                    <p class="author">Ug'ur Qoshar</p>
+                    <div class="rating">⭐⭐⭐⭐⭐ (312)</div>
+                    <p class="price">37,000 so'm</p>
+                    <button class="add-btn">Savatga Qo'shish</button>
+                </div>
+
+                <div class="book-card" onclick="addToCart(3, 'Eng ishonchli vahil', 38000, 'photo_2025-10-27_19-25-38.jpg')">
+                    <div class="book-image">
+                        <img src="./img/photo_2025-10-27_19-25-38.jpg" alt="Temur Imperiyasi">
+                    </div>
+                    <h3>Eng ishonchli vakil</h3>
+                    <p class="author">Ug'ur Qoshar</p>
+                    <div class="rating">⭐⭐⭐⭐ (189)</div>
+                    <p class="price">38,000 so'm</p>
+                    <button class="add-btn">Savatga Qo'shish</button>
+                </div>
+
+                <div class="book-card" onclick="addToCart(4, 'Menga alloh kifoya', 50000, 'photo_2025-10-27_19-25-42.jpg')">
+                    <div class="book-image">
+                        <img src="./img/photo_2025-10-27_19-25-42.jpg" alt="Samarqand">
+                    </div>
+                    <h3>Menga Alloh kifoya</h3>
+                    <p class="author">Ug'ur Qoshar</p>
+                    <div class="rating">⭐⭐⭐⭐⭐ (267)</div>
+                    <p class="price">50,000 so'm</p>
+                    <button class="add-btn">Savatga Qo'shish</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="container">
+            <h2>Kategoriyalar</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">📖</div>
+                    <h3>Adabiyot</h3>
+                    <p>Klassik va zamonaviy adabiyot</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🏛️</div>
+                    <h3>Tarix</h3>
+                    <p>O'zbek tarixining eng muhim davrlar</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🎨</div>
+                    <h3>Madaniyat</h3>
+                    <p>Madaniyat va san'at haqida kitoblar</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">✈️</div>
+                    <h3>Sayohat</h3>
+                    <p>Sayohat va geografiya kitoblari</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Yangiliklar Uchun Obuna Bo'ling</h2>
+            <p>Yangi kitoblar va maxsus takliflar haqida birinchi bo'lib bilib oling</p>
+            <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                <input type="email" placeholder="Emailingizni kiriting" required>
+                <button type="submit">Obuna Bo'lish</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Bayon Kitob Do'koni</h4>
+                    <p>O'zbek adabiyoti va tarixining eng yaxshi kitoblarini taqdim etamiz</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Tezkor Havolalar</h4>
+                    <ul>
+                        <li><a href="index.html">Bosh Sahifa</a></li>
+                        <li><a href="books.html">Kitoblar</a></li>
+                        <li><a href="about.html">Biz Haqida</a></li>
+                        <li><a href="contact.html">Aloqa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Aloqa</h4>
+                    <p>📞 +998 (77) 056 07 70</p>
+                    <p>📧 info@bayon.uz</p>
+                    <p>📍 Farg'ona, O'zbekiston</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Ijtimoiy Tarmoqlar</h4>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">Telegram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bayon Kitob Do'koni. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Falling Animation Container -->
+    <div id="fallingContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

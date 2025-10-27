@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biz Haqida - Bayon</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .about-section {
+            padding: 3rem 0;
+        }
+
+        .about-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .value-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .value-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .member-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .member-info {
+            padding: 1.5rem;
+        }
+
+        .member-info h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <h1>📚 Bayon</h1>
+                </div>
+                <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Bosh Sahifa</a></li>
+                    <li><a href="books.html">Kitoblar</a></li>
+                    <li><a href="about.html" class="active">Biz Haqida</a></li>
+                    <li><a href="contact.html">Aloqa</a></li>
+                </ul>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <span class="cart-count" id="cartCount">0</span>
+                    🛒
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Savatcha</h2>
+            <button class="close-btn" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">Savatcha bo'sh</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Jami:</strong>
+                <span id="cartTotal">0 so'm</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Sotib Olish</button>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="container about-section">
+        <div class="about-hero">
+            <h1>Bayon Kitob Do'koni Haqida</h1>
+            <p>O'zbek adabiyoti va tarixining eng yaxshi kitoblarini taqdim etamiz</p>
+        </div>
+
+        <div style="background: white; padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
+            <h2 style="color: var(--primary); margin-bottom: 1rem;">Bizning Hikoya</h2>
+            <p style="line-height: 1.8; color: #555; margin-bottom: 1rem;">
+                Bayon Kitob Do'koni 2023 yilda tashkil topgan bo'lib, O'zbek adabiyoti va tarixining eng qimmatli asarlarini o'quvchilarga yetkazish maqsadida faoliyat olib bormoqda. Biz ishonamizki, kitoblar insonning eng yaxshi do'sti va o'qish madaniyatini rivojlantirish jamiyatning asosiy vazifalaridan biridir.
+            </p>
+            <p style="line-height: 1.8; color: #555;">
+                Bizning do'konida siz klassik va zamonaviy adabiyot, tarix, madaniyat va sayohat haqida kitoblarni topishingiz mumkin. Har bir kitob ehtiyot bilan tanlangan va o'quvchilarga eng yaxshi tajribani berish uchun tayyorlangan.
+            </p>
+        </div>
+
+        <h2 style="color: var(--primary); margin: 2rem 0;">Bizning Qadriyatlar</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <h3>📚 Ilm va Madaniyat</h3>
+                <p>Biz o'zbek ilm va madaniyatini dunyoga tanittish va rivojlantirishga bag'ishlangan.</p>
+            </div>
+            <div class="value-card">
+                <h3>💡 Innovatsiya</h3>
+                <p>Zamonaviy texnologiyalardan foydalanib, kitob sotishni osonlashtirmoqdamiz.</p>
+            </div>
+            <div class="value-card">
+                <h3>❤️ Xizmat</h3>
+                <p>Har bir mijozga eng yaxshi xizmatni ko'rsatish bizning asosiy maqsadimiz.</p>
+            </div>
+            <div class="value-card">
+                <h3>🌟 Sifat</h3>
+                <p>Faqat sifatli va asl kitoblarni taqdim etamiz.</p>
+            </div>
+        </div>
+
+        <h2 style="color: var(--primary); margin: 2rem 0;">Bizning Jamoamiz</h2>
+       
+
+        <div style="background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%); color: white; padding: 2rem; border-radius: 8px; margin-top: 2rem; text-align: center;">
+            <h2 style="color: white; margin-bottom: 1rem;">Bizning Statistika</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 2rem;">
+                <div>
+                    <h3 style="font-size: 2rem;">5000+</h3>
+                    <p>Qoniqtirilgan Mijozlar</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 2rem;">500+</h3>
+                    <p>Kitoblar Katalogi</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 2rem;">3+</h3>
+                    <p>Yillik Tajriba</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 2rem;">24/7</h3>
+                    <p>Xizmat</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Bayon Kitob Do'koni</h4>
+                    <p>O'zbek adabiyoti va tarixining eng yaxshi kitoblarini taqdim etamiz</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Tezkor Havolalar</h4>
+                    <ul>
+                        <li><a href="index.html">Bosh Sahifa</a></li>
+                        <li><a href="books.html">Kitoblar</a></li>
+                        <li><a href="about.html">Biz Haqida</a></li>
+                        <li><a href="contact.html">Aloqa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Aloqa</h4>
+                    <p>📞 +998 (71) 056 07 70</p>
+                    <p>📧 info@bayon.uz</p>
+                    <p>📍 Farg'ona, O'zbekiston</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Ijtimoiy Tarmoqlar</h4>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">Telegram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bayon Kitob Do'koni. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Falling Animation Container -->
+    <div id="fallingContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aloqa - Bayon</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .contact-section {
+            padding: 3rem 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 2rem 0;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .info-item {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-item p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            color: var(--primary);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-icons a:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <h1>📚 Bayon</h1>
+                </div>
+                <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Bosh Sahifa</a></li>
+                    <li><a href="books.html">Kitoblar</a></li>
+                    <li><a href="about.html">Biz Haqida</a></li>
+                    <li><a href="contact.html" class="active">Aloqa</a></li>
+                </ul>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <span class="cart-count" id="cartCount">0</span>
+                    🛒
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Savatcha</h2>
+            <button class="close-btn" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">Savatcha bo'sh</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Jami:</strong>
+                <span id="cartTotal">0 so'm</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Sotib Olish</button>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="container contact-section">
+        <h1 style="color: var(--primary); text-align: center; margin-bottom: 2rem;">Biz Bilan Aloqa</h1>
+
+        <div class="contact-grid">
+            <form class="contact-form" onsubmit="sendMessage(event)">
+                <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Xabar Yuborish</h2>
+                
+                <div class="form-group">
+                    <label>Ismingiz</label>
+                    <input type="text" required placeholder="Ismingizni kiriting">
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required placeholder="Email manzilingiz">
+                </div>
+
+                <div class="form-group">
+                    <label>Telefon</label>
+                    <input type="tel" placeholder="+998 (XX) XXX-XX-XX">
+                </div>
+
+                <div class="form-group">
+                    <label>Mavzu</label>
+                    <input type="text" required placeholder="Xabaringizning mavzusi">
+                </div>
+
+                <div class="form-group">
+                    <label>Xabar</label>
+                    <textarea required placeholder="Xabaringizni kiriting..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit">Yuborish</button>
+                </div>
+            </form>
+
+            <div class="contact-info">
+                <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Aloqa Ma'lumotlari</h2>
+
+                <div class="info-item">
+                    <h3>📞 Telefon</h3>
+                    <p>+998 (77) 056 07 70</p>
+                    <p>+998 (77) 056 07 70</p>
+                </div>
+
+                <div class="info-item">
+                    <h3>📧 Email</h3>
+                    <p>info@bayon.uz</p>
+                    <p>support@bayon.uz</p>
+                </div>
+
+                <div class="info-item">
+                    <h3>📍 Manzil</h3>
+                    <p>Farg'ona, O'zbekiston</p>
+                </div>
+
+                <div class="info-item">
+                    <h3>🕐 Ish Vaqti</h3>
+                    <p>Dushanba - Juma: 09:00 - 18:00</p>
+                    <p>Shanba: 10:00 - 16:00</p>
+                </div>
+
+                <div class="info-item">
+                    <h3>Ijtimoiy Tarmoqlar</h3>
+                    <div class="social-icons">
+                        <a href="#" title="Facebook">f</a>
+                        <a href="#" title="Instagram">📷</a>
+                        <a href="#" title="Telegram">✈️</a>
+                        <a href="#" title="YouTube">▶️</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Bayon Kitob Do'koni</h4>
+                    <p>O'zbek adabiyoti va tarixining eng yaxshi kitoblarini taqdim etamiz</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Tezkor Havolalar</h4>
+                    <ul>
+                        <li><a href="index.html">Bosh Sahifa</a></li>
+                        <li><a href="books.html">Kitoblar</a></li>
+                        <li><a href="about.html">Biz Haqida</a></li>
+                        <li><a href="contact.html">Aloqa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Aloqa</h4>
+                    <p>📞 +998 (71) 056 07 70</p>
+                    <p>📧 info@bayon.uz</p>
+                    <p>📍 Farg'ona, O'zbekiston</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Ijtimoiy Tarmoqlar</h4>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">Telegram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bayon Kitob Do'koni. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Falling Animation Container -->
+    <div id="fallingContainer"></div>
+
+    <script src="script.js"></script>
+    <script>
+        function sendMessage(e) {
+            e.preventDefault();
+            alert('Xabaringiz muvaffaqiyatli yuborildi! Tez orada siz bilan bog\'lanamiz.');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitoblar - Bayon</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .books-page {
+            padding: 2rem 0;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .filter-group input,
+        .filter-group select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+
+        .books-count {
+            margin-bottom: 1rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <h1>📚 Bayon</h1>
+                </div>
+                <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Bosh Sahifa</a></li>
+                    <li><a href="books.html" class="active">Kitoblar</a></li>
+                    <li><a href="about.html">Biz Haqida</a></li>
+                    <li><a href="contact.html">Aloqa</a></li>
+                </ul>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <span class="cart-count" id="cartCount">0</span>
+                    🛒
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Savatcha</h2>
+            <button class="close-btn" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">Savatcha bo'sh</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Jami:</strong>
+                <span id="cartTotal">0 so'm</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Sotib Olish</button>
+        </div>
+    </div>
+
+    <!-- Books Page -->
+    <div class="container books-page">
+        <h1 style="color: var(--primary); margin-bottom: 2rem;">Barcha Kitoblar</h1>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label>Qidiruv</label>
+                <input type="text" id="searchInput" placeholder="Kitob nomini kiriting" onkeyup="filterBooks()">
+            </div>
+            <div class="filter-group">
+                <label>Kategoriya</label>
+                <select id="categoryFilter" onchange="filterBooks()">
+                    <option value="">Barcha Kategoriyalar</option>
+                    <option value="Adabiyot">Adabiyot</option>
+                    <option value="Tarix">Tarix</option>
+                    <option value="Madaniyat">Madaniyat</option>
+                    <option value="Sayohat">Sayohat</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Narx Oralig'i</label>
+                <select id="priceFilter" onchange="filterBooks()">
+                    <option value="">Barcha Narxlar</option>
+                    <option value="0-80000">0 - 80,000 so'm</option>
+                    <option value="80000-120000">80,000 - 120,000 so'm</option>
+                    <option value="120000-200000">120,000+ so'm</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Saralash</label>
+                <select id="sortFilter" onchange="filterBooks()">
+                    <option value="popular">Mashhur</option>
+                    <option value="price-low">Narx: Kam → Ko'p</option>
+                    <option value="price-high">Narx: Ko'p → Kam</option>
+                    <option value="rating">Reyting</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="books-count" id="booksCount"></div>
+        <div class="books-grid" id="booksGrid"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Bayon Kitob Do'koni</h4>
+                    <p>O'zbek adabiyoti va tarixining eng yaxshi kitoblarini taqdim etamiz</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Tezkor Havolalar</h4>
+                    <ul>
+                        <li><a href="index.html">Bosh Sahifa</a></li>
+                        <li><a href="books.html">Kitoblar</a></li>
+                        <li><a href="about.html">Biz Haqida</a></li>
+                        <li><a href="contact.html">Aloqa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Aloqa</h4>
+                    <p>📞 +998 (77) 056 07 70</p>
+                    <p>📧 info@bayon.uz</p>
+                    <p>📍 Farg'ona, O'zbekiston</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Ijtimoiy Tarmoqlar</h4>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">Telegram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bayon Kitob Do'koni. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Falling Animation Container -->
+    <div id="fallingContainer"></div>
+
+    <script src="script.js"></script>
+    <script>
+        const allBooks = [
+            { id: 1, name: "Har narsadan tashvish chekma ey ko‘nggil", author: "Ug'ur Qoshar", price: 37000, category: "Tarix", rating: 5, reviews: 245, image: "photo_2025-10-27_19-25-41.jpg" },
+            { id: 2, name: "Qo‘rqmanglar men sizlar bilanman", author: "Ug'ur Qoshar", price: 37000, category: "Adabiyot", rating: 5, reviews: 312, image: "photo_2025-10-27_19-25-44.jpg" },
+            { id: 3, name: "Eng ishonchli vakil", author: "Ug'ur Qoshar", price: 38000, category: "Tarix", rating: 4, reviews: 189, image: "photo_2025-10-27_19-25-38.jpg" },
+            { id: 4, name: "Menga Alloh kifoya", author: "Ug'ur Qoshar", price: 50000, category: "Sayohat", rating: 5, reviews: 267, image: "photo_2025-10-27_19-25-42.jpg" },
+            { id: 5, name: "Saltanat tabibi", author: "Mahmud Hasaniy", price: 83000, category: "Madaniyat", rating: 4, reviews: 156, image: "photo_2025-10-27_19-25-54 (2).jpg" },
+            { id: 6, name: "Turkiston Rossiya va Xitoy oralig‘ida", author: "Bormirza Hayit", price: 84000, category: "Madaniyat", rating: 5, reviews: 198, image: "photo_2025-10-27_19-25-41.jpg" },
+            { id: 7, name: "Ishonchli xabar", author: "Adhan Sharqoviy", price: 83000, category: "Adabiyot", rating: 5, reviews: 234, image: "photo_2025-10-27_19-25-50.jpg" },
+            { id: 8, name: "Mudarris", author: "Ahmad Tohir", price: 95000, category: "Madaniyat", rating: 4, reviews: 145, image: "photo_2025-10-27_19-25-59.jpg" },
+            { id: 9, name: "Madrasa", author: "Zodut Tolibiyn", price: 60000, category: "Tarix", rating: 4, reviews: 167, image: "photo_2025-10-27_19-26-02.jpg" },
+            { id: 10, name: "Islomga bag'ishlangan umr", author: "Muhammad Amin Muhammad Yusuf", price: 40000, category: "Adabiyot", rating: 5, reviews: 289, image: "photo_2025-10-27_19-26-09.jpg" },
+            { id: 11, name: "FALASTIN: agar o'lishim lozim bo'lsa...", author: "Nadejda Kevorkova", price: 69000, category: "Adabiyot", rating: 5, reviews: 201, image: "photo_2025-10-27_19-26-23.jpg" },
+            { id: 12, name: "Halqa", author: "Akrom Malik", price: 65000, category: "Tarix", rating: 5, reviews: 276, image: "photo_2025-10-27_19-26-27.jpg" }
+        ];
+
+        function renderBooks(books) {
+            const grid = document.getElementById('booksGrid');
+            const count = document.getElementById('booksCount');
+
+            count.textContent = `${books.length} ta kitob topildi`;
+
+            grid.innerHTML = books.map(book => `
+                <div class="book-card" onclick="addToCart(${book.id}, '${book.name}', ${book.price}, '${book.image}')">
+                    <div class="book-image">
+                        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">📖</div>
+                    </div>
+                        <img src=${book.image}>
+                    <h3>${book.name}</h3>
+                    <p class="author">${book.author}</p>
+                    <div class="rating">${'⭐'.repeat(book.rating)} (${book.reviews})</div>
+                    <p class="price">${book.price.toLocaleString()} so'm</p>
+                    <button class="add-btn">Savatga Qo'shish</button>
+                </div>
+            `).join('');
+        }
+
+        function filterBooks() {
+            let filtered = [...allBooks];
+
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const price = document.getElementById('priceFilter').value;
+            const sort = document.getElementById('sortFilter').value;
+
+            // Search filter
+            if (search) {
+                filtered = filtered.filter(book => book.name.toLowerCase().includes(search));
+            }
+
+            // Category filter
+            if (category) {
+                filtered = filtered.filter(book => book.category === category);
+            }
+
+            // Price filter
+            if (price) {
+                const [min, max] = price.split('-').map(Number);
+                filtered = filtered.filter(book => book.price >= min && (max ? book.price <= max : true));
+            }
+
+            // Sorting
+            if (sort === 'price-low') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sort === 'price-high') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sort === 'rating') {
+                filtered.sort((a, b) => b.rating - a.rating || b.reviews - a.reviews);
+            } else {
+                filtered.sort((a, b) => b.reviews - a.reviews);
+            }
+
+            renderBooks(filtered);
+        }
+
+        // Initial render
+        renderBooks(allBooks);
+        loadCart();
+    </script>
+</body>
+</html>
