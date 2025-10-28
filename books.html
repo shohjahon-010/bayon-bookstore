@@ -93,7 +93,7 @@
         <div class="filters">
             <div class="filter-group">
                 <label>Qidiruv</label>
-                <input type="text" id="searchInput" placeholder="Kitob nomini kiriting" onkeyup="filterBooks()">
+                <input type="text" id="searchInput" placeholder="Kitob nomini kiriting" oninput="filterBooks()">
             </div>
            
             <div class="filter-group">
@@ -206,17 +206,26 @@
         function filterBooks() {
             let filtered = [...allBooks];
 
-            const search = document.getElementById('searchInput').value.toLowerCase();
-            const category = document.getElementById('categoryFilter').value;
-            const price = document.getElementById('priceFilter').value;
-            const sort = document.getElementById('sortFilter').value;
+            const searchEl = document.getElementById('searchInput');
+            const search = searchEl ? searchEl.value.trim().toLowerCase() : '';
 
-            // Search filter
+            const categoryEl = document.getElementById('categoryFilter');
+            const category = categoryEl ? categoryEl.value : '';
+
+            const priceEl = document.getElementById('priceFilter');
+            const price = priceEl ? priceEl.value : '';
+
+            const sortEl = document.getElementById('sortFilter');
+            const sort = sortEl ? sortEl.value : '';
+
+            // Search filter (name va author bo'yicha)
             if (search) {
-                filtered = filtered.filter(book => book.name.toLowerCase().includes(search));
+                filtered = filtered.filter(book =>
+                    (book.name + ' ' + book.author).toLowerCase().includes(search)
+                );
             }
 
-            // Category filter
+            // Category filter (agar element mavjud bo'lsa)
             if (category) {
                 filtered = filtered.filter(book => book.category === category);
             }
