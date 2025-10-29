@@ -1225,6 +1225,10 @@ body {
     padding: 0 12px;
   }
 
+  .imgg {
+    width: 400px;
+  height: 200px;
+  }
   /* Navigation */
   .navbar {
     padding: 0.75rem 0;
@@ -1554,6 +1558,15 @@ body {
   }
 }
 
+
+@media (max-width: 320px) {
+  .imgg {
+  width: 300px;
+  height: 170px;
+}
+}
+
+
 /* Extra small screens (360px and below) */
 @media (max-width: 360px) {
   .container {
@@ -1564,8 +1577,9 @@ body {
     font-size: 1.1rem;
   }
 .imgg {
-  width: 360px;
+  width: 300px;
   height: 200px;
+  padding: 10px;
 }
   .hero-title {
     font-size: 1.5rem;
