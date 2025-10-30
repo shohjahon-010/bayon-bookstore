@@ -5,23 +5,23 @@
 }
 
 :root {
-  --primary: #0d6efd;     /* primary blue */
-  --secondary: #cfe6ff;   /* light blue tint */
-  --accent: #3b82f6;      /* accent blue */
-  --dark: #042a5f;        /* deep navy for contrast */
-  --light: #e8f4ff;       /* very light blue background */
-  --text: #03263f;        /* deep text color */
-  --border: #c9e6ff;      /* pale blue border */
+  --primary: #0d6efd;    
+  --secondary: #cfe6ff;  
+  --accent: #3b82f6;      
+  --dark: #042a5f;       
+  --light: #e8f4ff;       
+  --text: #03263f;       
+  --border: #c9e6ff;      
 }
 
 body.dark-mode {
-  --primary: #3b82f6;     /* brighter primary for dark mode */
-  --secondary: #0b2f4f;   /* muted dark-teal-blue */
-  --accent: #60a5fa;      /* accent for dark mode */
-  --dark: #021428;        /* very dark blue background tone */
-  --light: #06223a;       /* card background in dark mode */
-  --text: #e6f4ff;        /* light text */
-  --border: #05304e;      /* darker border in dark mode */
+  --primary: #3b82f6;    
+  --secondary: #0b2f4f;   
+  --accent: #60a5fa;      
+  --dark: #021428;       
+  --light: #06223a;      
+  --text: #e6f4ff;       
+  --border: #05304e;     
 }
 
 /* Add styles for theme and language toggles */

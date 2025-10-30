@@ -266,7 +266,109 @@
             renderBooks(filtered);
         }
 
-        // Initial render
+        // --- Qo'shilgan: savatcha uchun rasm ko'rsatuvchi funksiyalar ---
+        const CART_KEY = 'bayon_cart';
+
+        function getCart() {
+            try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
+            catch (e) { return []; }
+        }
+        function saveCart(cart) {
+            localStorage.setItem(CART_KEY, JSON.stringify(cart));
+        }
+
+        function addToCart(id, name, price, image) {
+            const cart = getCart();
+            const existing = cart.find(i => i.id === id);
+            if (existing) {
+                existing.qty = (existing.qty || 1) + 1;
+            } else {
+                cart.push({ id, name, price, image, qty: 1 });
+            }
+            saveCart(cart);
+            renderCart();
+            updateCartCount();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            if (!container) return;
+
+            const cart = getCart();
+            if (!cart.length) {
+                container.innerHTML = `<p class="empty-cart">Savatcha bo'sh</p>`;
+                if (totalEl) totalEl.textContent = "0 so'm";
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="cart-item" style="display:flex;gap:0.75rem;align-items:flex-start;padding:0.5rem 0;border-bottom:1px solid var(--border);">
+                    <div class="cart-item-image" style="flex:0 0 72px;">
+                        <img src="./image/${item.image}" alt="${item.name}" style="width:72px;height:92px;object-fit:cover;border-radius:6px;border:1px solid var(--border)">
+                    </div>
+                    <div class="cart-item-info" style="flex:1;">
+                        <div class="cart-item-name" style="font-weight:600;">${item.name}</div>
+                        <div class="cart-item-price" style="color:rgba(0,0,0,0.7);margin:0.25rem 0;">${item.price.toLocaleString()} so'm</div>
+                        <div class="cart-item-actions" style="display:flex;gap:0.5rem;align-items:center;">
+                            <button class="qty-btn" onclick="changeQty(${item.id}, -1)" style="padding:0.25rem 0.5rem;border-radius:6px;border:1px solid var(--border)">-</button>
+                            <span style="min-width:26px;text-align:center;display:inline-block">${item.qty}</span>
+                            <button class="qty-btn" onclick="changeQty(${item.id}, 1)" style="padding:0.25rem 0.5rem;border-radius:6px;border:1px solid var(--border)">+</button>
+                            <button class="remove-btn" onclick="removeFromCart(${item.id})" style="margin-left:0.5rem;color:var(--primary);background:transparent;border:none;cursor:pointer">O'chirish</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((s, i) => s + (i.price * (i.qty || 1)), 0);
+            if (totalEl) totalEl.textContent = total.toLocaleString() + " so'm";
+        }
+
+        function changeQty(id, delta) {
+            let cart = getCart();
+            const item = cart.find(i => i.id === id);
+            if (!item) return;
+            item.qty = (item.qty || 1) + delta;
+            if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+            saveCart(cart);
+            renderCart();
+            updateCartCount();
+        }
+
+        function removeFromCart(id) {
+            const cart = getCart().filter(i => i.id !== id);
+            saveCart(cart);
+            renderCart();
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const countEl = document.getElementById('cartCount');
+            if (!countEl) return;
+            const totalQty = getCart().reduce((s, i) => s + (i.qty || 0), 0);
+            countEl.textContent = totalQty;
+        }
+
+        function loadCart() {
+            renderCart();
+            updateCartCount();
+        }
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            if (!sidebar) return;
+            sidebar.classList.toggle('active');
+        }
+
+        function checkout() {
+            const cart = getCart();
+            if (!cart.length) { alert("Savatcha bo'sh"); return; }
+            // Bu demo: haqiqiy to'lov tizimi qo'shish kerak
+            alert(`Siz ${cart.length} ta mahsulotni xarid qilmoqchisiz. (Demo)`);
+        }
+
+        // --- Oxirida: boshlang'ich render va yuklash ---
+        // (agar saytingizda allBooks/renderBooks/filterBooks mavjud bo'lsa, ular avvalgi kodda ishlaydi)
         renderBooks(allBooks);
         loadCart();
     </script>
