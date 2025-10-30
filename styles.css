@@ -5,23 +5,23 @@
 }
 
 :root {
-  --primary: #8b4513;
-  --secondary: #d2b48c;
-  --accent: #daa520;
-  --dark: #3e2723;
-  --light: #fff8dc;
-  --text: #2c1810;
-  --border: #d2b48c;
+  --primary: #0d6efd;     /* primary blue */
+  --secondary: #cfe6ff;   /* light blue tint */
+  --accent: #3b82f6;      /* accent blue */
+  --dark: #042a5f;        /* deep navy for contrast */
+  --light: #e8f4ff;       /* very light blue background */
+  --text: #03263f;        /* deep text color */
+  --border: #c9e6ff;      /* pale blue border */
 }
 
 body.dark-mode {
-  --primary: #d2b48c;
-  --secondary: #8b4513;
-  --accent: #daa520;
-  --dark: #fff8dc;
-  --light: #2c1810;
-  --text: #f5f5f5;
-  --border: #8b4513;
+  --primary: #3b82f6;     /* brighter primary for dark mode */
+  --secondary: #0b2f4f;   /* muted dark-teal-blue */
+  --accent: #60a5fa;      /* accent for dark mode */
+  --dark: #021428;        /* very dark blue background tone */
+  --light: #06223a;       /* card background in dark mode */
+  --text: #e6f4ff;        /* light text */
+  --border: #05304e;      /* darker border in dark mode */
 }
 
 /* Add styles for theme and language toggles */
@@ -666,10 +666,10 @@ body {
   overflow: hidden;
   transition: all 0.3s ease;
   cursor: pointer;
-  animation: fadeInScale 0.6s ease;
-  animation-fill-mode: both;
+  /* animation: fadeInScale 0.6s ease;
+  animation-fill-mode: both; */
 }
-
+/* 
 .book-card:nth-child(1) {
   animation-delay: 0.1s;
 }
@@ -684,10 +684,10 @@ body {
 
 .book-card:nth-child(4) {
   animation-delay: 0.4s;
-}
+} */
 
 .book-card:hover {
-  transform: translateY(-15px) scale(1.02);
+  transform:  scale(1.02);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
   border-color: var(--accent);
   animation: glow 0.8s ease infinite;
@@ -747,20 +747,75 @@ body {
   border-radius: 4px;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
-  animation: slideInUp 0.5s ease;
+  /* transition: all 0.3s ease;
+  animation: slideInUp 0.5s ease; */
 }
+
+
+
+
+
+
+
+.book-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 380px; /* Kartochka balandligini o'zgartiring */
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    padding: 1rem;
+}
+
+.book-info {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.rating {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start;
+    margin-top: auto;
+    gap: 0.5rem; 
+}
+
+.add-btn {
+    margin-left: 0; 
+    margin-top: 8px;
+    padding: 0.5rem 1rem;
+    background: var(--primary, #3e68ff);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+
+
+
+
+
+
+
+
 
 .add-btn:hover {
   background: var(--dark);
-  transform: scale(1.05) translateY(-2px);
+  transform: scale(1.05);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-  animation: bounce 0.6s ease;
+  transition: 0.4s;
+  /* animation: bounce 0.6s ease; */
 }
 
-.add-btn:active {
+/* .add-btn:active {
   animation: pulse 0.4s ease;
-}
+} */
 
 /* Categories */
 .categories {
