@@ -540,6 +540,31 @@ body {
   animation: glow 0.8s ease infinite;
 }
 
+/* Make cart icon and cart "Checkout" button only slightly scale on hover.
+   Disable any other animations for these elements so only the scale effect runs. */
+.cart-icon,
+.cart-sidebar .checkout-btn,
+.cart-sidebar button[onclick="checkout()"] {
+  animation: none !important;       /* prevent JS-added animations from running */
+  transition: transform 160ms ease, box-shadow 160ms ease;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.cart-icon:hover,
+.cart-sidebar .checkout-btn:hover,
+.cart-sidebar button[onclick="checkout()"]:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 24px rgba(3,49,76,0.12);
+}
+
+/* Optional: subtle press feedback for keyboard / touch */
+.cart-icon:active,
+.cart-sidebar .checkout-btn:active,
+.cart-sidebar button[onclick="checkout()"]:active {
+  transform: scale(0.99);
+}
+
 /* Hero Section */
 .hero {
   display: grid;
