@@ -500,6 +500,143 @@ function logout(e) {
   document.getElementById("profileDropdown").classList.remove("active")
 }
 
+/* --- Qo'shimcha: savatni barcha sahifalarda xatolik bermasdan rasm bilan ko'rsatish --- */
+
+function resolveImagePath(image) {
+  if (!image) return './image/placeholder.png';
+  image = String(image).trim();
+  if (/^https?:\/\//i.test(image)) return image;
+  if (image.startsWith('./') || image.startsWith('../') || image.startsWith('/')) return image;
+  return './image/' + image;
+}
+
+function escapeHtml(str) {
+  return String(str || '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+}
+
+function getCart() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+  catch (e) { return []; }
+}
+function saveCart(cart) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+}
+
+// addToCart: qo'llab-quvvatlaydi -> addToCart(bookObj) yoki addToCart(id, name, price, image)
+function addToCart(idOrObj, name, price, image) {
+  const cart = getCart();
+  let item;
+  if (typeof idOrObj === 'object') {
+    const b = idOrObj;
+    item = { id: b.id, name: b.name, price: Number(b.price) || 0, image: b.image || b.img || '' };
+  } else {
+    item = { id: idOrObj, name: name || '', price: Number(price) || 0, image: image || '' };
+  }
+
+  const existing = cart.find(i => i.id === item.id);
+  if (existing) {
+    existing.quantity = (existing.quantity || 1) + 1;
+  } else {
+    cart.push({ ...item, quantity: 1 });
+  }
+  saveCart(cart);
+  renderCartSafe();
+}
+
+function renderCartSafe() {
+  const container = document.getElementById('cartItems');
+  const countEl = document.getElementById('cartCount');
+  const totalEl = document.getElementById('cartTotal');
+  const cart = getCart();
+
+  // Cart count (agar element sahifada bo'lsa)
+  if (countEl) {
+    const totalQty = cart.reduce((s, i) => s + (i.quantity || 0), 0);
+    countEl.textContent = totalQty;
+  }
+
+  // Agar cartItems element sahifada bo'lmasa — faqat jami qiymatni yangilashga harakat qil
+  if (!container) {
+    if (totalEl) {
+      const total = cart.reduce((s, i) => s + (Number(i.price) || 0) * (i.quantity || 0), 0);
+      totalEl.textContent = total.toLocaleString() + " so'm";
+    }
+    return;
+  }
+
+  if (!cart.length) {
+    container.innerHTML = `<p class="empty-cart">Savatcha bo'sh</p>`;
+    if (totalEl) totalEl.textContent = "0 so'm";
+    return;
+  }
+
+  container.innerHTML = cart.map(item => {
+    const imgSrc = resolveImagePath(item.image);
+    const priceStr = (Number(item.price) || 0).toLocaleString();
+    return `
+      <div class="cart-item" style="display:flex;gap:0.75rem;align-items:flex-start;padding:0.5rem 0;border-bottom:1px solid var(--border);">
+        <div class="cart-item-image" style="flex:0 0 72px;">
+          <img src="${imgSrc}" alt="${escapeHtml(item.name)}" style="width:72px;height:92px;object-fit:cover;border-radius:6px;border:1px solid var(--border)">
+        </div>
+        <div class="cart-item-info" style="flex:1;">
+          <div class="cart-item-name" style="font-weight:600;">${escapeHtml(item.name)}</div>
+          <div class="cart-item-price" style="color:rgba(0,0,0,0.7);margin:0.25rem 0;">${priceStr} so'm</div>
+          <div class="cart-item-actions" style="display:flex;gap:0.5rem;align-items:center;">
+            <button class="qty-btn" onclick="changeQty(${item.id}, -1)" style="padding:0.25rem 0.5rem;border-radius:6px;border:1px solid var(--border)">-</button>
+            <span style="min-width:26px;text-align:center;display:inline-block">${item.quantity}</span>
+            <button class="qty-btn" onclick="changeQty(${item.id}, 1)" style="padding:0.25rem 0.5rem;border-radius:6px;border:1px solid var(--border)">+</button>
+            <button class="remove-btn" onclick="removeFromCart(${item.id})" style="margin-left:0.5rem;color:var(--primary);background:transparent;border:none;cursor:pointer">O'chirish</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  if (totalEl) {
+    const total = cart.reduce((s, i) => s + (Number(i.price) || 0) * (i.quantity || 0), 0);
+    totalEl.textContent = total.toLocaleString() + " so'm";
+  }
+}
+
+function changeQty(id, delta) {
+  const cart = getCart();
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.quantity = (item.quantity || 1) + delta;
+  if (item.quantity <= 0) {
+    removeFromCart(id);
+    return;
+  }
+  saveCart(cart);
+  renderCartSafe();
+}
+
+function removeFromCart(id) {
+  const cart = getCart().filter(i => i.id !== id);
+  saveCart(cart);
+  renderCartSafe();
+}
+
+function loadCart() {
+  renderCartSafe();
+}
+
+function toggleCart() {
+  const sidebar = document.getElementById('cartSidebar');
+  if (!sidebar) return;
+  sidebar.classList.toggle('active');
+}
+
+function checkout() {
+  const cart = getCart();
+  if (!cart.length) { alert("Savatcha bo'sh"); return; }
+  alert(`Siz ${cart.reduce((s,i)=>s+(i.quantity||0),0)} ta mahsulotni xarid qilmoqchisiz. (Demo)`);
+}
+
+// Auto init
+document.addEventListener('DOMContentLoaded', () => {
+  loadCart();
+});
 window.addEventListener("load", () => {
   const savedTheme = localStorage.getItem(THEME_KEY)
   const savedLanguage = localStorage.getItem(LANGUAGE_KEY)
